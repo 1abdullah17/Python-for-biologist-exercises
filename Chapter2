@@ -1,1 +1,77 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Sep  6 12:55:02 2023
+
+@author: abdul
+"""
+
+#Exercise1: Calculating AT content 
+DNA_seq= "ACTGATCGATTACGTATAGTATTTGCTATCATACATATATATCGATGCGTTCAT"
+
+A_content =DNA_seq.count("A")
+T_content= DNA_seq.count("T")
+AT_content= (A_content+T_content)/len(DNA_seq)
+print(AT_content)
+
+#Exercise2: Complementing DNA
+
+DNA_seq = "ACTGATCGATTACGTATAGTATTTGCTATCATACATATATATCGATGCGTTCAT"
+replacement1 = DNA_seq.replace('A', 't')
+print(replacement1)
+replacement2 = replacement1.replace('T', 'a')
+print(replacement2)
+replacement3 = replacement2.replace('C', 'g')
+print(replacement3)
+replacement4 = replacement3.replace('G', 'c')
+print(replacement4)
+print(replacement4.upper())
+
+#Exercise3: Restriction fragment lengths
+
+#The sequence contains a recognition site for the EcoRI restriction enzyme, which
+#cuts at the motif G*AATTC (the position of the cut is indicated by an asterisk).
+#Write a program which will calculate the size of the two fragments that will be
+#produced when the DNA sequence is digested with EcoRI.
+
+seq1= "ACTGATCGATTACGTATAGTAGAATTCTATCATACATATATATCGATGCGTTCAT"
+seq1.find("AATTC")
+
+fragment_1= seq1[0:22]
+fragment_2= seq1[22:]
+
+print(len(fragment_1))
+print(len(fragment_2))
+
+#Exercise 4: Splicing out introns, part one
+
+seq2= "ATCGATCGATCGATCGACTGACTAGTCATAGCTATGCATGTAGCTACTCGATCGATCGATCGATCGATCGATCGATCGATCGATCATGCTATCATCGATCGATATCGATGCATCGACTACTAT"
+
+#It comprises two exons and an intron. The first exon runs from the start of the
+#sequence to the sixty-third character, and the second exon runs from the ninetyfirst character to the end of the sequence. Write a program that will print just the
+#coding regions of the DNA sequence. 
+
+first_exon= seq2[0:64]
+
+second_exon= seq2[64:92]
+
+print(first_exon)
+print(second_exon)
+
+#Splicing out introns, part two
+
+#Using the data from part one, write a program that will calculate what percentage
+#of the DNA sequence is coding.
+
+coding_percentage= (len(first_exon)+len(second_exon))/len(seq2)*100
+
+#Splicing out introns, part three
+
+#Using the data from part one, write a program that will print out the original
+#genomic DNA sequence with coding bases in uppercase and non-coding bases in
+#lowercase.
+
+coding_base= first_exon.upper()+ second_exon.upper() 
+noncoding_base= seq2[92:].lower()
+
+print(coding_base+noncoding_base)
 
