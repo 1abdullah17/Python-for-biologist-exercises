@@ -1,0 +1,41 @@
+#Exercise1: Processing DNA in a file
+#The file input.txt contains a number of DNA sequences, one per line. Each sequence
+#starts with the same 14 base pair fragment – a sequencing adapter that should have
+#been removed. Write a program that will (a) trim this adapter and write the cleaned
+#sequences to a new file and (b) print the length of each sequence to the screen. 
+
+with open("input.txt", "r") as file:
+    lines = file.readlines()  
+
+# Remove the last line from the list
+lines = lines[:-1]
+
+with open("trimmed.txt", "w") as output:
+    for dna in lines:
+        trimmed_dna = dna[14:]
+        output.write(trimmed_dna)
+
+
+#Exercise2: Multiple exons from genomic DNA
+#The file genomic_dna.txt contains a section of genomic DNA, and the file exons.txt
+#contains a list of start/stop positions of exons. Each exon is on a separate line and
+#the start and stop positions are separated by a comma. Write a program that will
+#extract the exon segments, concatenate them, and write them to a new file.
+
+genomic_dna = open("genomic_dna.txt").read()
+exon_locations = open("exons.txt")
+
+coding_sequence_segments = []
+
+for line in exon_locations:
+    positions = line.split(',')
+    start = int(positions[0])
+    stop = int(positions[1])
+    exon = genomic_dna[start:stop]
+    coding_sequence_segments.append(exon)
+exon_locations.close()
+
+coding_sequence = "".join(coding_sequence_segments)
+
+with open("coding_sequence.txt", "w") as output:
+    output.write(coding_sequence)
