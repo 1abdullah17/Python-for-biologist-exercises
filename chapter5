@@ -1,0 +1,39 @@
+#Exercise1: Percentage of amino acid residues, part one
+
+#Write a function that takes two arguments – a protein sequence and an amino acid
+#residue code – and returns the percentage of the protein that the amino acid makes
+#up. Use the following assertions to test your function:
+
+def my_function(protein_seq,aa):
+    aa=aa.upper()
+    count=0
+    for i in protein_seq:
+        if (i==aa):
+            count +=1
+    length=len(protein_seq)
+    aa_percentage= int((count/length)*100)
+    return(aa_percentage)
+
+my_function("MSRSLLLRFLLFLLLLPPLP","M")
+my_function("MSRSLLLRFLLFLLLLPPLP", "r") == 10
+
+            
+#Exercise2: Percentage of amino acid residues, part two
+
+#Modify the function from part one so that it accepts a list of amino acid residues
+#rather than a single one. If no list is given, the function should return the
+#percentage of hydrophobic amino acid residues (A, I, L, M, F, W, Y and V). Your
+#function should pass the following assertions:
+
+
+hydrophobic_aa=["A", "I", "L", "M", "F", "W", "Y", "V"]
+
+def my_function2(protein_seq,aa=hydrophobic_aa):
+    count=0   
+    for i in protein_seq:
+      for j in aa:
+        if (i==j):
+          count +=1
+    length=len(protein_seq)
+    aa_percentage= int((count/length)*100)
+    return(aa_percentage)
