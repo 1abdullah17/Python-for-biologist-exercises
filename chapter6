@@ -1,0 +1,84 @@
+#Exercise1: Print out the gene names for all genes belonging to Drosophila melanogaster or
+#Drosophila simulans. 
+    
+data = open("data.csv")
+for line in data:
+ columns = line.rstrip("\n").split(",")
+ species = columns[0]
+ sequence = columns[1]
+ name = columns[2]
+ expression = columns[3]
+ if species == "Drosophila melanogaster" or species == "Drosophila simulans":
+   print(name) 
+          
+#Exercise2
+#Print out the gene names for all genes between 90 and 110 bases long. 
+
+data = open("data.csv")
+for line in data:
+ columns = line.rstrip("\n").split(",")
+ species = columns[0]
+ sequence = columns[1]
+ name = columns[2]
+ expression = columns[3]
+ if 90<len(sequence)<110:
+   print(name) 
+
+#Exercise3: Print out the gene names for all genes whose AT content is less than 0.5 and whose
+#expression level is greater than 200.
+    
+def get_at_content(sequence):
+    A_content =sequence.count("A")
+    T_content= sequence.count("T")
+
+    AT_content= (A_content+T_content)/len(sequence)
+    return(AT_content)
+
+data = open("data.csv")
+for line in data:
+ columns = line.rstrip("\n").split(",")
+ species = columns[0]
+ sequence = columns[1]
+ name = columns[2]
+ expression = columns[3]
+ if get_at_content(sequence)<0.5 and int(expression)>200:
+   print(name)
+
+#Exercise4: Print out the gene names for all genes whose name begins with "k" or "h" except
+#those belonging to Drosophila melanogaster.
+
+data = open("data.csv")
+for line in data:
+ columns = line.rstrip("\n").split(",")
+ species = columns[0]
+ sequence = columns[1]
+ name = columns[2]
+ expression = columns[3]
+ if (name.startswith("k") or name.startswith("h")) and species != "Drosophila melanogaster":
+   print(name)
+
+#Exercise 5: For each gene, print out a message giving the gene name and saying whether its AT
+#content is high (greater than 0.65), low (less than 0.45) or medium (between 0.45
+#and 0.65).
+
+
+def get_at_content(sequence):
+    A_content =sequence.count("A")
+    T_content= sequence.count("T")
+
+    AT_content= (A_content+T_content)/len(sequence)
+    return(AT_content)
+
+data = open("data.csv")
+for line in data:
+ columns = line.rstrip("\n").split(",")
+ species = columns[0]
+ sequence = columns[1]
+ name = columns[2]
+ expression = columns[3]
+ if get_at_content(sequence)>0.65:
+     print(name,"AT content is high")
+ elif 0.45<get_at_content(sequence)<0.65:
+     print(name,"AT content is medium")
+ else:
+     print(name,"AT content is low")
