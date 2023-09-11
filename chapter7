@@ -1,0 +1,89 @@
+#Exercise:1 
+#Write a program that will print only the accession names that satisfy the following
+#criteria – treat each criterion separately:
+#• contain the number 5
+#• contain the letter d or e
+#• contain the letters d and e in that order
+#• contain the letters d and e in that order with a single letter between them
+#• contain both the letters d and e in any order
+#• start with x or y
+#• start with x or y and end with e
+#• contain three or more numbers in a row
+#• end with d followed by either a, r or p
+
+import re
+gene_accession_numbers= ["xkn59438", "yhdck2", "eihd39d9", "chdsye847", "hedle3455", "xjhd53e", "45da", "de37dp"]
+
+for i in gene_accession_numbers:
+    if re.search("5", i):
+        print("\t"+ i)
+    
+for i in gene_accession_numbers:
+    if re.search("[d|e]", i):
+        print("\t"+ i)
+       
+for i in gene_accession_numbers:
+    if re.search("d.*e", i):
+        print("\t"+ i)
+           
+for i in gene_accession_numbers:
+    if re.search("(d.e)", i):
+        print("\t"+ i)        
+
+for i in gene_accession_numbers:
+    if re.search("^(x|y)", i):
+        print("\t"+ i)        
+
+for i in gene_accession_numbers:
+    if re.search("^(x|y).e$", i):
+        print("\t"+ i)        
+
+for i in gene_accession_numbers:
+    if re.search("\d{3,}", i):
+        print("\t"+ i)        
+
+for i in gene_accession_numbers:
+    if re.search("d(a|r|p)$", i):
+        print("\t"+ i)   
+
+#Exercise2: In the chapter_7 file inside the exercises download, there's a file called dna.txt
+#which contains a made-up DNA sequence. Predict the fragment lengths that we will
+#get if we digest the sequence with two made-up restriction enzymes – AbcI, whose
+#recognition site is ANT*AAT, and AbcII, whose recognition site is GCRW*TG
+#(asterisks indicate the position of the cut site).
+
+AbcI= "A[ATGC]TAAT"
+AbcII="GC[AG][AT]TG" 
+
+#R stands for "purine," which includes the two purine bases found in DNA, adenine (A), and guanine (G). In a recognition site, "R" can match either A or G
+#W stands for "weak hydrogen bond," and in this context, it typically represents the two weak hydrogen bond-forming bases in DNA, adenine (A), and thymine (T). In a recognition site, "W" can match either A or T.
+
+
+import re
+
+with open("dna.txt","r") as dna_content:
+    dna =dna_content.read().rstrip("\n")
+
+cuts = [0]
+
+for match in re.finditer(r"A[ATGC]TAAT", dna):
+ cuts.append(match.start() + 3)
+
+for match in re.finditer(r"GC[AG][AT]TG", dna):
+ cuts.append(match.start() + 4)
+
+cuts.append(len(dna))
+cuts = sorted(cuts)
+print(cuts)
+
+fragment_size1=len(dna[0:488])
+fragment_size2=len(dna[488:1143])
+fragment_size3=len(dna[1143:1577])
+fragment_size4=len(dna[1577:1628])
+fragment_size5=len(dna[1628:2012])
+
+print("first fragment size is: "+str(fragment_size1))
+print("second fragment size is: "+str(fragment_size2))
+print("third fragment size is: "+str(fragment_size3))
+print("fourth fragment size is: "+str(fragment_size4))
+print("fifth fragment size is: "+str(fragment_size5))
