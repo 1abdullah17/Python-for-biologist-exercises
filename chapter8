@@ -1,0 +1,52 @@
+#Exercise: Write a program that will translate a DNA sequence into protein. Your program
+#should use the standard genetic code which can be found at this URL1.
+#http://www.ncbi.nlm.nih.gov/Taxonomy/taxonomyhome.html/index.cgi?chapter=tgencodes#SG1
+
+
+genetic_code = {
+    "TTT": "F", "TTC": "F", "TTA": "L", "TTG": "L",
+    "CTT": "L", "CTC": "L", "CTA": "L", "CTG": "L",
+    "ATT": "I", "ATC": "I", "ATA": "I", "ATG": "M",
+    "GTT": "V", "GTC": "V", "GTA": "V", "GTG": "V",
+    "TCT": "S", "TCC": "S", "TCA": "S", "TCG": "S",
+    "CCT": "P", "CCC": "P", "CCA": "P", "CCG": "P",
+    "ACT": "T", "ACC": "T", "ACA": "T", "ACG": "T",
+    "GCT": "A", "GCC": "A", "GCA": "A", "GCG": "A",
+    "TAT": "Y", "TAC": "Y", "TAA": "*", "TAG": "*",
+    "CAT": "H", "CAC": "H", "CAA": "Q", "CAG": "Q",
+    "AAT": "N", "AAC": "N", "AAA": "K", "AAG": "K",
+    "GAT": "D", "GAC": "D", "GAA": "E", "GAG": "E",
+    "TGT": "C", "TGC": "C", "TGA": "*", "TGG": "W",
+    "CGT": "R", "CGC": "R", "CGA": "R", "CGG": "R",
+    "AGT": "S", "AGC": "S", "AGA": "R", "AGG": "R",
+    "GGT": "G", "GGC": "G", "GGA": "G", "GGG": "G",
+}
+
+with open("dna.txt","r") as dna_file:
+    dna_sequence= dna_file.read().rstrip("\n")
+
+# Function to translate DNA to protein
+def translate_dna_to_protein(dna_sequence):
+    protein_sequence = ""
+    start_codon_found = False
+    
+    for i in range(0, len(dna_sequence), 3):
+        codon = dna_sequence[i:i+3]
+        
+        if codon == "ATG":  # Start codon
+            start_codon_found = True
+        
+        if start_codon_found:
+            amino_acid = genetic_code.get(codon, "")
+            if amino_acid == "*":  # Stop codon
+                break
+            protein_sequence += amino_acid
+    
+    return protein_sequence
+
+
+# Translate the DNA sequence to protein
+protein_sequence = translate_dna_to_protein(dna_sequence)
+
+# Print the resulting protein sequence
+print("Protein Sequence:", protein_sequence)
